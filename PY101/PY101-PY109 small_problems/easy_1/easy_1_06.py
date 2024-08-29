@@ -32,26 +32,42 @@
 
 # Further Exploration
 # Suppose the input was a list of space separated integers instead of just a single integer? How would your compute_sum and compute_product functions change?
-integers = input("Please enter integers greater than 0: ").split(" ")
+
+user_input_int = input("Please enter integers greater than 0: ")
+split_input = user_input_int.split(" ")
 list_of_integers = []
 
-for integer in integers:
-    list_of_integers.append(int(integer))
 
-preference = input("Enter 's' to compute the sum, or 'p' to compute the product. ")
+for integer in split_input:
+    while True:
+        try:
+            if integer.isdigit() or int(integer) > 0:
+                list_of_integers.append(int(integer))
+                break
+            else:
+                print("You didn't enter valid integers. Please start over.")
+                user_input_int = input("Please enter integers greater than 0: ")
+        except ValueError:
+            print("Testing testing")
+        
+# preference = input("Enter 's' to compute the sum, or 'p' to compute the product. ")
+    
+# if preference != "s" or "p":
+#     print("You didn't input the correct letter, so this is an error.")
 
-def sum_or_product(integers):
-    if preference == 's':
-        sum = 0
-        for i in list_of_integers:
-            sum += i
-        print(sum)
-    elif preference == 'p':
-        product = 1
-        for i in list_of_integers:
-            product *= i
-        print(product)
-    else:
-        print("You didn't input the correct letter, so this is an error.")
+# def sum_or_product():
+#     if preference == 's':
+#         total_sum = 0
+#         for i in get_valid_input:
+#             total_sum += i
+#         return total_sum
+#     elif preference == 'p':
+#         total_product = 1
+#         for i in get_valid_input:
+#             total_product *= i
+#         return total_product
+#     else:
+#         print("Something went wrong.")
+        
 
-sum_or_product(integers)
+# sum_or_product(get_valid_int, get_valid_preference)
