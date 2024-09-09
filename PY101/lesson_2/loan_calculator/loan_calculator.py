@@ -34,7 +34,7 @@ while True:
 
 #Ask the user what is the annual percentage rate (in this format: 2.5 or 5)?
     prompt("""What is your annual percentage rate?
-           Please use this format: 2.5 or 5""")
+           Please use this format: 2.5 for 2.5% or 5 for 5%""")
     apr = input()
 
 #Validate user input
@@ -72,7 +72,10 @@ while True:
             monthly_payment = loan_amount / loan_duration_months
         else:
             monthly_interest_rate = (apr / 100) / 12
-            monthly_payment = loan_amount * (monthly_interest_rate / (1 - (1 + monthly_interest_rate) ** (-loan_duration_months)))
+            monthly_payment = loan_amount * (
+                monthly_interest_rate / (1 - (1 + monthly_interest_rate) **
+                 (-loan_duration_months))
+                )
     except ZeroDivisionError:
         print("There was an error in the calculation.")
     else:
