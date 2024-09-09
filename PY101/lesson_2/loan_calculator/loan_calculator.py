@@ -10,7 +10,25 @@
 #apr = input()
 #loan_duration_years = input()
 
-def prompt(message):
+"""Loan calculator that calculates the dollar amount 
+for the monthly payments"""
+
+import json
+
+LANGUAGE = "en"
+
+with open('loan_calc_messages.json', 'r', encoding='utf-8') as file:
+    MESSAGES = json.load(file)
+
+def messages(message, lang="en"):
+    return MESSAGES[lang][message]
+
+def prompt(key, **kwargs):
+    message = messages(key, LANGUAGE)
+
+    if kwargs:
+        message = message.format(**kwargs)
+
     print(f"==> {message}")
 
 def invalid_number(number_string):
@@ -20,36 +38,34 @@ def invalid_number(number_string):
         return True
 
 #Welcome the user
-prompt("Welcome to my loan calculator!")
+prompt("welcome")
 
 #Ask the user how much is your loan?
 while True:
-    prompt("How much is your loan? Please use this format: 100000")
+    prompt("ask_loan_amount")
     loan_amount = input()
 
 #Validate user input
     while invalid_number(loan_amount):
-        prompt("You didn't enter a valid input type. Please try again!")
+        prompt("invalid_number")
         loan_amount = input()
 
 #Ask the user what is the annual percentage rate (in this format: 2.5 or 5)?
-    prompt("""What is your annual percentage rate?
-           Please use this format: 2.5 for 2.5% or 5 for 5%""")
+    prompt("ask_apr")
     apr = input()
 
 #Validate user input
     while invalid_number(apr):
-        prompt("You didn't enter a valid input type. Please try again!")
+        prompt("invalid_number")
         apr = input()
 
 #Ask the user how long does your loan last in years (in this format: 1 or 2.5)?
-    prompt("""How long does your loan last in years?
-           Please use this format: 2.5 or 5""")
+    prompt("ask_time")
     loan_duration_years = input()
 
 #Validate user input
     while invalid_number(loan_duration_years):
-        prompt("You didn't enter a valid input type. Please try again!")
+        prompt("invalid_number")
         loan_duration_years = input()
 
 #Coerce our input to floats
@@ -58,17 +74,16 @@ while True:
     loan_duration_years = float(loan_duration_years)
 
 #Output the values of the variables we have so far
-    prompt(f"""Okay, so we have a loan in the amount of ${loan_amount:,.2f}
-        with an APR of {apr}% and it lasts for {loan_duration_years} years. 
-        Let me make my calculations.""")
+    prompt(
+        "state_numbers", loan_amount=loan_amount, apr=apr, 
+        loan_duration_years=loan_duration_years)
 
 #Make the calculation and output the result
     loan_duration_months = loan_duration_years * 12
 
     try:
         if apr == 0:
-            prompt("""Oh, I see there is no interest - Nice!
-                   Let me adjust for that.""")
+            prompt("no_interest")
             monthly_payment = loan_amount / loan_duration_months
         else:
             monthly_interest_rate = (apr / 100) / 12
@@ -77,23 +92,20 @@ while True:
                  (-loan_duration_months))
                 )
     except ZeroDivisionError:
-        print("There was an error in the calculation.")
+        print("calc_error")
     else:
-        prompt(f"""Okay, your monthly payment will be
-               ${monthly_payment:,.2f} per month.""")
+        prompt("result", monthly_payment=monthly_payment)
 
 #Ask the user if they want to calculate again
-    prompt("""Would you like to calculate another monthly payment?
-           Type Y for Yes and N for No:""")
+    prompt("another_calculation")
     preference = input()
 
 #Validate the user preference
     while preference not in ["Y", "y", "N", "n"]:
-        prompt("""You didn't select either of the correct options.
-               Please try again!""")
+        prompt("preference_choice")
         preference = input()
 
 #If they want to end the program
     if preference in ["N", "n"]:
-        prompt("Thanks for using my loan calculator!")
+        prompt("end_of_program")
         break

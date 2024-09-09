@@ -1,0 +1,31 @@
+{
+    "en": {
+        "welcome" : "Welcome to my loan calculator!",
+        "ask_loan_amount" : "How much is your loan? Please use this format: 100000",
+        "invalid_number" : "You didn't enter a valid input type. Please try again!",
+        "ask_apr" : "What is your annual percentage rate? Please use this format: 2.5 for 2.5% or 5 for 5%",
+        "ask_time" : "How long does your loan last in years? Please use this format: 2.5 or 5",
+        "state_numbers" : "Okay, so we have a loan in the amount of ${loan_amount:,.2f} with an APR of {apr}% and it lasts for {loan_duration_years} years. Let me make my calculations.",
+        "no_interest" : "Oh, I see there is no interest - Nice! Let me adjust for that.",
+        "calc_error" : "There was an error in the calculation.",
+        "result" : "Okay, your monthly payment will be ${monthly_payment:,.2f} per month.",
+        "another_calculation" : "Would you like to calculate another monthly payment? Type Y for Yes and N for No:",
+        "preference_choice" : "You didn't select either of the correct options. Please try again!",
+        "end_of_program" : "Thanks for using my loan calculator! Have a nice day!"
+    },
+
+    "es": {
+        "welcome" : "¡Bienvenido a mi calculadora de prestamos!",
+        "ask_loan_amount" : "¿Cuánto es su préstamo? Utilice este formato: 100000",
+        "invalid_number" : "No has introducido un tipo de entrada válido. ¡Por favor, inténtalo de nuevo!",
+        "ask_apr" : "¿Que es su tasa de interés anual? Por favor utilice este formato: 2.5 para 2.5% o 5 para 5%",
+        "ask_time" : "¿Cuánto tiempo dura su préstamo en años? Por favor utilice este formato: 2.5 o 5",
+        "state_numbers" : "Bueno, tenemos un préstamo por un monto de ${loan_amount:,.2f} con una TAE de {apr}% y una duración de {loan_duration_years} años. Déjame hacer mis cálculos.",
+        "no_interest" : "Ah, ya veo que no hay interés. ¡Genial! Déjame hacer los ajustes necesarios.",
+        "calc_error" : "Hubo un error en el cálculo.",
+        "result" : "Bueno, su pago mensual será ${monthly_payment:,.2f} cada mes.",
+        "another_calculation" : "¿Desea calcular otro pago mensual? Escriba Y para Sí y N para No:",
+        "preference_choice" : "No has seleccionado ninguna de las opciones correctas. ¡Por favor, inténtalo de nuevo!",
+        "end_of_program" : "¡Gracias por usar mi calculadora de prestamos! ¡Que tengas un buen día!"
+    }
+}
