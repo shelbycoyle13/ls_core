@@ -39,6 +39,62 @@ def prompt(key, **kwargs):
 
     print(f"==> {message}")
 
+#Clears the screen and gets valid loan amount
+def get_loan_amount():
+    clean_screen()
+    prompt("ask_loan_amount")
+    input_loan_amount = input()
+
+    #Validate user input for loan
+    while invalid_number(input_loan_amount):
+        prompt("invalid_number")
+        input_loan_amount = input()
+
+    while invalid_amount_time(input_loan_amount):
+        prompt("no_zeros")
+        input_loan_amount = input()
+
+    input_loan_amount = float(input_loan_amount)
+    return input_loan_amount
+
+#Asks and validates apr in _% format
+def get_apr():
+    prompt("ask_apr")
+    input_apr = input()
+
+    while invalid_number(input_apr):
+        prompt("invalid_number")
+        input_apr = input()
+
+    input_apr = float(input_apr)
+    return input_apr
+
+#Ask and validate duration (whole numbers only)
+def get_loan_duration_years():
+    prompt("ask_year")
+    input_loan_duration_years = input()
+
+    while invalid_number(input_loan_duration_years):
+        prompt("invalid_number")
+        input_loan_duration_years = input()
+
+    while invalid_amount_time(input_loan_duration_years):
+        prompt("no_zeros")
+        input_loan_duration_years = input()
+    input_loan_duration_years = int(input_loan_duration_years)
+    return input_loan_duration_years
+
+def get_loan_duration_months():
+    prompt("ask_months")
+    input_loan_duration_months = input()
+
+    while invalid_number(input_loan_duration_months):
+        prompt("invalid_number")
+        input_loan_duration_months = input()
+
+    input_loan_duration_months = int(input_loan_duration_months)
+    return input_loan_duration_months
+
 def invalid_number(number_string):
     try:
         num = float(number_string)
@@ -53,99 +109,67 @@ def invalid_amount_time(number_string):
         num = float(number_string)
         if math.isnan(num) or math.isinf(num):
             return True
-        return float(number_string) == 0
+        return num <= 0
     except ValueError:
         return True
+
+def calc_monthly_payment(
+        input_loan_amount, input_apr, input_loan_duration_months_total
+        ):
+    if input_apr == 0:
+        prompt("no_interest")
+        input_monthly_payment = (input_loan_amount /
+                                 input_loan_duration_months_total)
+    else:
+        monthly_interest_rate = (input_apr / 100) / 12
+        input_monthly_payment = input_loan_amount * (
+                monthly_interest_rate / (1 - (1 + monthly_interest_rate) **
+                 (-input_loan_duration_months_total))
+                )
+    return input_monthly_payment
+
+def calculate_again():
+    prompt("another_calculation")
+    user_preference = input()
+
+    while user_preference not in ["Y", "y", "N", "n"]:
+        prompt("preference_choice")
+        user_preference = input()
+    if user_preference in ["Y", "y"]:
+        return True
+    return False
 
 #Welcome the user
 
 prompt("welcome")
 
-#Clear the screen and Ask the user how much is your loan?
 while True:
-    clean_screen()
-    prompt("ask_loan_amount")
-    loan_amount = input()
-
-#Validate user input for loan
-    while invalid_number(loan_amount):
-        prompt("invalid_number")
-        loan_amount = input()
-
-    while invalid_amount_time(loan_amount):
-        prompt("no_zeros")
-        loan_amount = input()
-
-#Ask the user what is the annual percentage rate (in this format: 2.5 or 5)?
-    prompt("ask_apr")
-    apr = input()
-
-#Validate user input for apr
-    while invalid_number(apr):
-        prompt("invalid_number")
-        apr = input()
-
-#Ask the user how long does your loan last in years and months (whole numbers only, enter year first)
-    prompt("ask_year")
-    loan_duration_years = input()
-
-#Validate user input for years
-    while invalid_number(loan_duration_years):
-        prompt("invalid_number")
-        loan_duration_years = input()
-
-    while invalid_amount_time(loan_duration_years):
-        prompt("no_zeros")
-        loan_duration_years = input()
-
-#Ask how many months?
-    prompt("ask_months")
-    loan_duration_months = input()
-
-#Validate user input for months
-    while invalid_number(loan_duration_months):
-        prompt("invalid_number")
-        loan_duration_months = input()
-
-#Coerce our input to floats
-    loan_amount = float(loan_amount)
-    apr = float(apr)
-    loan_duration_years = int(loan_duration_years)
-    loan_duration_months = int(loan_duration_months)
+    loan_amount = get_loan_amount()
+    apr = get_apr()
+    loan_duration_years = get_loan_duration_years()
+    loan_duration_months = get_loan_duration_months()
 
 #Output the values of the variables we have so far
     prompt(
         "state_numbers", loan_amount=loan_amount, apr=apr, 
-        loan_duration_years=loan_duration_years, loan_duration_months=loan_duration_months)
+        loan_duration_years=loan_duration_years,
+        loan_duration_months=loan_duration_months
+        )
 
 #Make the calculation and output the result
-    loan_duration_months_total = (loan_duration_years * 12) + loan_duration_months
+    loan_duration_months_total = (
+        loan_duration_years * 12) + loan_duration_months
 
     try:
-        if apr == 0:
-            prompt("no_interest")
-            monthly_payment = loan_amount / loan_duration_months_total
-        else:
-            monthly_interest_rate = (apr / 100) / 12
-            monthly_payment = loan_amount * (
-                monthly_interest_rate / (1 - (1 + monthly_interest_rate) **
-                 (-loan_duration_months_total))
-                )
+        monthly_payment = calc_monthly_payment(
+            loan_amount, apr, loan_duration_months_total)
     except ZeroDivisionError:
         print("calc_error")
     else:
         prompt("result", monthly_payment=monthly_payment)
 
-#Ask the user if they want to calculate again
-    prompt("another_calculation")
-    preference = input()
+    preference = calculate_again()
 
-#Validate the user preference
-    while preference not in ["Y", "y", "N", "n"]:
-        prompt("preference_choice")
-        preference = input()
-
-#If they want to end the program
-    if preference in ["N", "n"]:
+    if not preference:
         prompt("end_of_program")
         break
