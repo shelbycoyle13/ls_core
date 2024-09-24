@@ -168,8 +168,6 @@ while True:
     else:
         prompt("result", monthly_payment=monthly_payment)
 
-    preference = calculate_again()
-
-    if not preference:
+    if not calculate_again():
         prompt("end_of_program")
         break
