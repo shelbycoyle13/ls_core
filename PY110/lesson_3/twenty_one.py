@@ -38,7 +38,7 @@ def prompt(message):
 
 
 def initialize_game():
-    os.system("cls")
+    os.system('cls' if os.name == 'nt' else 'clear')
 
     prompt(f"Welcome to the game {GOAL_NUMBER}!")
     prompt(
