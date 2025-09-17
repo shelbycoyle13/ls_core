@@ -67,3 +67,22 @@ string = "What's up doc?"
 print(word_sizes(string) == {6: 1, 2: 1, 4: 1})
 
 print(word_sizes('') == {})
+
+#Second, more readable answer:
+
+def word_sizes(string):
+
+    if not string:
+        return {}
+    
+    list_of_words = string.split()
+
+    word_length_dict = {}
+
+    for word in list_of_words:
+        if len(word) not in word_length_dict:
+            word_length_dict[len(word)] = 1
+        else:
+            word_length_dict[len(word)] += 1
+
+    return word_length_dict

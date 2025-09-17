@@ -93,3 +93,20 @@ print(rotate_list(lst) == [2, 3, 4, 1])
 print(lst == [1, 2, 3, 4])
 
 print(rotate_list([1, 2, 3, 4, 5]) == [2, 3, 4, 5, 1])
+
+#Second, more succinct answer:
+
+def rotate_list(lst):
+
+    if not isinstance(lst, list): #Object we want to check, class type
+        return None
+
+    if len(lst) == 0:
+        return []
+    
+    copy_of_list = lst.copy()
+
+    first_element = copy_of_list.pop(0)
+    copy_of_list.append(first_element)
+
+    return copy_of_list

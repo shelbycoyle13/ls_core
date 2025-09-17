@@ -63,3 +63,9 @@ print(is_palindrome('Madam') == False)
 
 # all characters matter
 print(is_palindrome("madam i'm adam") == False)
+
+#Second, way more concise answer - slicing is a lifesaver!
+def is_palindrome(string):
+    if string == string[::-1]:
+        return True
+    return False

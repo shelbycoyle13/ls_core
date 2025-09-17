@@ -36,9 +36,9 @@ def integer_to_string(integer):
     integer_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     final_string = ""
     
-    while integer > 0:
-        integer, remainder = divmod(integer, 10)
-        final_string = integer_list[remainder] + final_string
+    while integer > 0: #4321
+        integer, remainder = divmod(integer, 10) #integer, remainder = divmod(4321, 10) = (432, 1)
+        final_string = integer_list[remainder] + final_string # '1' + final_string
     return final_string or '0'
 
 print(integer_to_string(4321) == "4321")              # True

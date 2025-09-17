@@ -16,7 +16,7 @@ WINNING_LINES = [
     [1, 5, 9],
     [3, 5, 7],  # diagonals
 ]
-FIRST_MOVE = ["player", "computer", "choose"]
+FIRST_MOVE = ["player", "computer", "random"]
 
 
 def prompt(message):
@@ -24,7 +24,7 @@ def prompt(message):
 
 
 def display_board(board):
-    os.system("cls")
+    os.system('cls' if os.name == 'nt' else 'clear')
 
     prompt(f"You are {HUMAN_MARKER}. Computer is {COMPUTER_MARKER}.")
     prompt("Each win is a point. The first to 5 points wins the match!")
@@ -75,7 +75,7 @@ def who_goes_first():
 
     prompt(
         "Who do you want to go first? "
-        "Press 1 for Player, 2 for Computer, 3 for Choose"
+        "Press 1 for Player, 2 for Computer, 3 for Random"
     )
     first_move_choice = input().strip()
 
