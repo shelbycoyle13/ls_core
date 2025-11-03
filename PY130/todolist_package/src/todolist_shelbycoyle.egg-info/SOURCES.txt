@@ -1,0 +1,10 @@
+LICENSE.txt
+README.md
+pyproject.toml
+src/todolist_shelbycoyle/__init__.py
+src/todolist_shelbycoyle/todo.py
+src/todolist_shelbycoyle/todolist.py
+src/todolist_shelbycoyle.egg-info/PKG-INFO
+src/todolist_shelbycoyle.egg-info/SOURCES.txt
+src/todolist_shelbycoyle.egg-info/dependency_links.txt
+src/todolist_shelbycoyle.egg-info/top_level.txt

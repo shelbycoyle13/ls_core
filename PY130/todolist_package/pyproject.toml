@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "todolist_shelbycoyle"
-version = "0.1.0"
+version = "0.1.1"
 authors = [
     {name = "Shelby Coyle", email = "shelbycoyle13@gmail.com"},
 ]
@@ -20,5 +20,5 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/USERNAME/todolist"
-Issues = "https://github.com/USERNAME/todolist/issues"
+Homepage = "https://github.com/shelbycoyle13/ls_core/tree/04bf2af5507b2cccf84395f4e40eee972650a2f6/PY130/todolist"
+Issues = "https://github.com/shelbycoyle13/ls_core/issues"
